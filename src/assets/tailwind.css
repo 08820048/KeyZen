@@ -1,3 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/harmonyos-sans@4.5.13/index.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Inter', 'HarmonyOS Sans', ui-sans-serif, system-ui, sans-serif;
+  background: #181A20;
+  min-height: 100vh;
+}
+
+.bg-animated {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
+.text-glow {
+  color: #F4F4F5;
+  text-shadow: 0 0 8px #5F7FFF, 0 0 2px #A970FF;
+}
+
+.btn-glass {
+  @apply bg-glass border border-glass shadow-glow backdrop-blur-glass transition-all duration-300 text-white font-semibold rounded-xl px-8 py-3;
+}
+
+.btn-glass:hover {
+  @apply shadow-glow scale-105;
+}
+
+.card-glass {
+  @apply bg-glass border border-glass shadow-glass backdrop-blur-glass transition-shadow duration-300;
+}
+
+.card-glass:hover {
+  @apply shadow-glow;
+}
