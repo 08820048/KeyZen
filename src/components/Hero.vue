@@ -1,6 +1,7 @@
 <template>
   <section class="flex flex-col items-center justify-center text-center py-20 md:py-32 select-none">
-    <DecodeTitle />
+    <!--<DecodeTitle />-->
+    <DecodeTitleLaser />
     <p class="text-lg md:text-2xl text-gray-300 mb-10 animate-fade-in delay-100">
       KeyZen 利用每个人独特的打字行为，提供无感、隐私、安全的身份验证方式。
     </p>
@@ -12,7 +13,7 @@
 </template>
 
 <script setup>
-import DecodeTitle from './DecodeTitle.vue';
+import DecodeTitleLaser from './DecodeTitleLaser.vue';
 </script>
 
 <style scoped>
