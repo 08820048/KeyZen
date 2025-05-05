@@ -1,21 +1,18 @@
 <template>
   <section class="flex flex-col items-center justify-center text-center py-20 md:py-32 select-none">
-    <h1 class="text-5xl md:text-7xl font-extrabold mb-7 tracking-tight relative text-glow-hero animate-fade-in-glow">
-      从键盘节奏中识别你是谁
-      <span class="glow-bg absolute inset-0 pointer-events-none"></span>
-    </h1>
+    <DecodeTitle />
     <p class="text-lg md:text-2xl text-gray-300 mb-10 animate-fade-in delay-100">
       KeyZen 利用每个人独特的打字行为，提供无感、隐私、安全的身份验证方式。
     </p>
     <div class="flex flex-col md:flex-row gap-4 justify-center">
-      <a href="#demo" class="btn-modern-primary animate-fade-in delay-200">立即体验</a>
-      <a href="#docs" class="btn-modern-outline animate-fade-in delay-300">查看文档</a>
+      <a href="#demo" class="btn-modern-primary animate-fade-in delay-200"><span>立即体验</span></a>
+      <a href="#docs" class="btn-modern-outline animate-fade-in delay-300"><span>查看文档</span></a>
     </div>
   </section>
 </template>
 
 <script setup>
-// 无逻辑，纯展示
+import DecodeTitle from './DecodeTitle.vue';
 </script>
 
 <style scoped>

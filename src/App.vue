@@ -7,7 +7,7 @@
       <Hero />
       <Features />
     </main>
-    <Footer />
+    <!-- <Footer /> removed for minimal design -->
   </div>
 </template>
 
@@ -15,7 +15,6 @@
 import Navbar from './components/Navbar.vue';
 import Hero from './components/Hero.vue';
 import Features from './components/Features.vue';
-import Footer from './components/Footer.vue';
 import BackgroundEffect from './components/BackgroundEffect.vue';
 import DynamicGridBg from './components/DynamicGridBg.vue';
 </script>
