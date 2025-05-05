@@ -1,4 +1,5 @@
 <template>
+  <DynamicGridBg />
   <div class="min-h-screen flex flex-col bg-darkBg text-darkText font-sans overflow-x-hidden">
     <BackgroundEffect />
     <Navbar />
@@ -16,4 +17,11 @@ import Hero from './components/Hero.vue';
 import Features from './components/Features.vue';
 import Footer from './components/Footer.vue';
 import BackgroundEffect from './components/BackgroundEffect.vue';
+import DynamicGridBg from './components/DynamicGridBg.vue';
 </script>
+
+<style>
+body {
+  background: #0d1117 !important;
+}
+</style>
