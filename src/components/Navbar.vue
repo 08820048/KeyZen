@@ -1,7 +1,7 @@
 <template>
   <div class="fixed top-6 left-0 w-full z-[100] pointer-events-none flex justify-center">
     <nav
-      class="navbar-extract pointer-events-auto max-w-6xl w-[94vw] md:w-[92vw] flex items-center justify-between py-3 px-4 md:py-4 md:px-10 rounded-2xl shadow-xl bg-glass/85 backdrop-blur-lg border border-glass transition-all duration-500"
+      class="navbar-extract pointer-events-auto max-w-6xl w-[94vw] md:w-[92vw] flex items-center justify-between py-3 px-4 md:py-4 md:px-10 rounded-lg shadow-xl bg-glass/85 backdrop-blur-lg border border-glass transition-all duration-500"
     >
       <div class="flex items-center">
         <span class="text-2xl md:text-3xl font-extrabold tracking-widest select-none text-white logo-glow-soft relative overflow-visible leading-none">
@@ -33,16 +33,16 @@
 
 <style scoped>
 .navbar-extract {
-  /* 移除明显阴影与发灰边框，提升沉稳感 */
-  box-shadow: 0 2px 12px 0 rgba(40,44,52,0.05); /* 极淡柔和，仅底部有轻微层次 */
-  border: 1.5px solid rgba(80,90,120,0.07); /* 更淡更自然 */
-  background: linear-gradient(180deg, rgba(38,41,52,0.82) 70%, rgba(28,30,36,0.90) 100%);
-  backdrop-filter: blur(28px) saturate(1.12);
-  border-radius: 1.25rem;
+  background: rgba(16,17,18,0.38);
+  box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.07);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  border-radius: 10px;
+  border: 1.5px solid rgba(160,180,220,0.08);
   transition: background 0.28s cubic-bezier(0.4,0,0.2,1), box-shadow 0.28s, border-color 0.28s;
 }
 .logo-glow-soft {
-  text-shadow: 0 0 18px #6c7aff99, 0 0 6px #a970ff55, 0 0 2px #fff8;
+  text-shadow: 0 0 2px #fff8;
   position: relative;
 }
 .nav-link-enhanced {
@@ -85,6 +85,9 @@
 .nav-link-enhanced:focus {
   color: #fff;
   text-shadow: 0 0 12px #5F7FFF, 0 0 3px #A970FF;
+  background: rgba(255,255,255,0.10);
+  box-shadow: 0 1.5px 8px 0 #b3d3ff33;
+  filter: brightness(1.22);
 }
 .nav-link-enhanced:active {
   color: #A970FF;
