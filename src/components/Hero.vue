@@ -38,7 +38,7 @@
           <div class="feature-card-inner">
             <div class="feature-icon-wrapper privacy-protection">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="feature-icon">
-                <path d="M12 2L4 5V11.5C4 16.5 7.5 21 12 22C16.5 21 20 16.5 20 11.5V5L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2L4 5V11.5C4 16.5 7.5 21 12 22C16.5 21 20 16.5 20 11.5V5L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shield-pulse"/>
                 <path d="M12 11C13.1046 11 14 10.1046 14 9C14 7.89543 13.1046 7 12 7C10.8954 7 10 7.89543 10 9C10 10.1046 10.8954 11 12 11Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M12 11V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -57,8 +57,8 @@
           <div class="feature-card-inner">
             <div class="feature-icon-wrapper security-trust">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="feature-icon">
-                <path d="M12 2L4 5V11.5C4 16.5 7.5 21 12 22C16.5 21 20 16.5 20 11.5V5L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 2L4 5V11.5C4 16.5 7.5 21 12 22C16.5 21 20 16.5 20 11.5V5L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="shield-pulse"/>
+                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="check-mark"/>
               </svg>
               <div class="icon-glow"></div>
             </div>
@@ -75,7 +75,7 @@
           <div class="feature-card-inner">
             <div class="feature-icon-wrapper quick-integration">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="feature-icon">
-                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lightning-flash"/>
               </svg>
               <div class="icon-glow"></div>
             </div>
@@ -426,6 +426,69 @@ const closeModal = () => {
 
 .typing-wave {
   animation: wave 2s ease-in-out infinite;
+}
+
+/* 盾牌脉冲动画 */
+@keyframes shield-pulse-animation {
+  0% {
+    stroke-width: 1.5;
+    stroke-opacity: 0.8;
+  }
+  50% {
+    stroke-width: 2;
+    stroke-opacity: 1;
+  }
+  100% {
+    stroke-width: 1.5;
+    stroke-opacity: 0.8;
+  }
+}
+
+.shield-pulse {
+  animation: shield-pulse-animation 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* 对勾动画 */
+@keyframes check-animation {
+  0% {
+    stroke-dasharray: 0, 100;
+    stroke-opacity: 0.7;
+  }
+  50% {
+    stroke-dasharray: 100, 0;
+    stroke-opacity: 1;
+  }
+  100% {
+    stroke-dasharray: 100, 0;
+    stroke-opacity: 0.7;
+  }
+}
+
+.check-mark {
+  animation: check-animation 3s ease-in-out infinite;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+}
+
+/* 闪电动画 */
+@keyframes lightning-animation {
+  0% {
+    stroke-opacity: 0.6;
+    filter: drop-shadow(0 0 0px rgba(95, 127, 255, 0));
+  }
+  50% {
+    stroke-opacity: 1;
+    filter: drop-shadow(0 0 3px rgba(95, 127, 255, 0.6));
+  }
+  100% {
+    stroke-opacity: 0.6;
+    filter: drop-shadow(0 0 0px rgba(95, 127, 255, 0));
+  }
+}
+
+.lightning-flash {
+  animation: lightning-animation 2s ease-in-out infinite;
 }
 
 /* 卡片悬停效果 */

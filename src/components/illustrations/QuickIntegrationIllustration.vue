@@ -7,13 +7,21 @@
         <div class="header-dot green"></div>
       </div>
       <div class="editor-content">
-        <div class="code-line" v-for="(line, index) in codeLines" :key="index">
-          <span class="line-number">{{ index + 1 }}</span>
-          <span class="code-text" v-html="line"></span>
-        </div>
+        <pre class="code-block"><code>
+<span class="keyword">import</span> { <span class="class-name">KeyZen</span> } <span class="keyword">from</span> <span class="string">"keyzen-sdk"</span>;
+
+<span class="comment">// 初始化 KeyZen</span>
+<span class="keyword">const</span> <span class="variable">keyzen</span> = <span class="keyword">new</span> <span class="class-name">KeyZen</span>({
+  <span class="property">apiKey</span>: <span class="string">"your_api_key"</span>,
+  <span class="property">mode</span>: <span class="string">"local"</span>
+});
+
+<span class="comment">// 开始监听打字行为</span>
+<span class="variable">keyzen</span>.<span class="function">startMonitoring</span>();<span class="cursor">|</span>
+        </code></pre>
       </div>
     </div>
-    
+
     <div class="connection-lines">
       <div class="connection-line" v-for="i in 3" :key="i"
         :style="{
@@ -22,7 +30,7 @@
         }">
       </div>
     </div>
-    
+
     <div class="platforms">
       <div class="platform-icon web">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +53,7 @@
         </svg>
       </div>
     </div>
-    
+
     <div class="lightning">
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -55,20 +63,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const codeLines = ref([
-  '<span class="keyword">import</span> { KeyZen } <span class="keyword">from</span> <span class="string">"keyzen-sdk"</span>;',
-  '',
-  '<span class="comment">// 初始化 KeyZen</span>',
-  '<span class="keyword">const</span> keyzen = <span class="keyword">new</span> <span class="function">KeyZen</span>({',
-  '  <span class="property">apiKey</span>: <span class="string">"your_api_key"</span>,',
-  '  <span class="property">mode</span>: <span class="string">"local"</span>',
-  '});',
-  '',
-  '<span class="comment">// 开始监听打字行为</span>',
-  'keyzen.<span class="function">startMonitoring</span>();',
-]);
+// 不需要额外的脚本逻辑
 </script>
 
 <style scoped>
@@ -88,12 +83,13 @@ const codeLines = ref([
   position: relative;
   width: 280px;
   height: 200px;
-  background: rgba(20, 22, 30, 0.9);
+  background: rgba(20, 22, 30, 0.95);
   border-radius: 8px;
   overflow: hidden;
   z-index: 3;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(95, 127, 255, 0.1);
   animation: float 3s ease-in-out infinite;
+  backdrop-filter: blur(4px);
 }
 
 .editor-header {
@@ -124,28 +120,30 @@ const codeLines = ref([
 }
 
 .editor-content {
-  padding: 10px;
+  padding: 0;
+  background: linear-gradient(to bottom, rgba(30, 32, 40, 0.95), rgba(20, 22, 30, 0.95));
+  height: calc(100% - 24px);
+  overflow: auto;
+}
+
+.code-block {
+  margin: 0;
+  padding: 12px 10px;
   font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
   font-size: 10px;
   color: #E4E4E4;
-  line-height: 1.5;
-}
-
-.code-line {
-  display: flex;
-  gap: 8px;
+  line-height: 1.6;
   white-space: pre;
+  counter-reset: line;
 }
 
-.line-number {
-  color: #636363;
-  user-select: none;
-  min-width: 16px;
-  text-align: right;
+.code-block code {
+  display: block;
 }
 
 .keyword {
   color: #C678DD;
+  font-weight: 600;
 }
 
 .string {
@@ -154,14 +152,36 @@ const codeLines = ref([
 
 .comment {
   color: #7F848E;
+  font-style: italic;
 }
 
 .function {
   color: #61AFEF;
+  font-weight: 500;
 }
 
 .property {
   color: #E06C75;
+}
+
+.class-name {
+  color: #E5C07B;
+  font-weight: 500;
+}
+
+.variable {
+  color: #ABB2BF;
+}
+
+.cursor {
+  color: #fff;
+  animation: blink 1s step-end infinite;
+  font-weight: normal;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .connection-lines {
