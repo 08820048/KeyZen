@@ -98,8 +98,9 @@
   height: 100%;
   min-height: 240px;
   cursor: default;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: transform;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+  will-change: transform, box-shadow;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .feature-card-inner {
@@ -255,23 +256,44 @@
   animation: wave 2s ease-in-out infinite;
 }
 
+/* 卡片悬停效果 */
+@keyframes pulse-glow {
+  0% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.4; }
+}
+
+@keyframes subtle-float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+.feature-card:hover .icon-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.feature-card:hover .feature-icon {
+  animation: subtle-float 3s ease-in-out infinite;
+}
+
 /* 响应式调整 */
 @media (max-width: 768px) {
   .feature-card {
     padding: 1.5rem;
     min-height: 200px;
   }
-  
+
   .feature-icon-wrapper {
     width: 48px;
     height: 48px;
     margin-bottom: 1.25rem;
   }
-  
+
   .feature-title {
     font-size: 1.125rem;
   }
-  
+
   .feature-desc {
     font-size: 0.875rem;
   }

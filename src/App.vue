@@ -1,5 +1,5 @@
 <template>
-  <DynamicGridBg />
+  <KeyboardRhythmBackground />
   <div class="min-h-screen flex flex-col bg-darkBg text-darkText font-sans overflow-x-hidden">
     <BackgroundEffect />
     <Navbar />
@@ -45,6 +45,7 @@ import Hero from './components/Hero.vue';
 import FeatureCards from './components/FeatureCards.vue';
 import BackgroundEffect from './components/BackgroundEffect.vue';
 import DynamicGridBg from './components/DynamicGridBg.vue';
+import KeyboardRhythmBackground from './components/KeyboardRhythmBackground.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { Mousewheel } from 'swiper/modules';

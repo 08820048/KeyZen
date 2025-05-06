@@ -5,7 +5,7 @@
       <DecodeTitleLaser />
     </div>
     <p class="text-lg md:text-2xl text-gray-300 mb-12 md:mb-16 animate-fade-in delay-100 max-w-3xl">
-      KeyZen 利用每个人独特的打字行为，提供无感、隐私、安全的身份验证方式。
+      KeyZen 利用每个人独特的打字行为，提供无感、隐私、安全的身份验证。
     </p>
     <div class="flex flex-col md:flex-row gap-4 justify-center mb-16 md:mb-20">
       <a href="#demo" class="btn-modern-primary animate-fade-in delay-200"><span>立即体验</span></a>
@@ -16,7 +16,7 @@
     <div class="w-full max-w-7xl px-6 md:px-8 animate-fade-in delay-400">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         <!-- 无感验证卡片 -->
-        <div class="feature-card group" @click="openModal('seamlessAuth')">
+        <div class="feature-card group" @mouseenter="handleMouseEnter('seamlessAuth')" @mouseleave="handleMouseLeave">
           <div class="feature-card-inner">
             <div class="feature-icon-wrapper seamless-auth">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="feature-icon">
@@ -34,7 +34,7 @@
         </div>
 
         <!-- 隐私保护卡片 -->
-        <div class="feature-card group" @click="openModal('privacyProtection')">
+        <div class="feature-card group" @mouseenter="handleMouseEnter('privacyProtection')" @mouseleave="handleMouseLeave">
           <div class="feature-card-inner">
             <div class="feature-icon-wrapper privacy-protection">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="feature-icon">
@@ -53,7 +53,7 @@
         </div>
 
         <!-- 安全可信卡片 -->
-        <div class="feature-card group" @click="openModal('securityTrust')">
+        <div class="feature-card group" @mouseenter="handleMouseEnter('securityTrust')" @mouseleave="handleMouseLeave">
           <div class="feature-card-inner">
             <div class="feature-icon-wrapper security-trust">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="feature-icon">
@@ -71,7 +71,7 @@
         </div>
 
         <!-- 接入快捷卡片 -->
-        <div class="feature-card group" @click="openModal('quickIntegration')">
+        <div class="feature-card group" @mouseenter="handleMouseEnter('quickIntegration')" @mouseleave="handleMouseLeave">
           <div class="feature-card-inner">
             <div class="feature-icon-wrapper quick-integration">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="feature-icon">
@@ -95,6 +95,8 @@
     :show="showModal"
     :feature-data="currentFeature"
     @close="closeModal"
+    @modal-enter="onModalEnter"
+    @modal-leave="onModalLeave"
   />
 </template>
 
@@ -103,20 +105,49 @@ import { ref, inject } from 'vue';
 import DecodeTitleLaser from './DecodeTitleLaser.vue';
 import FeatureModal from './FeatureModal.vue';
 import { featureModalData } from '../data/featureModalData.js';
+import FancyGlassButton from './FancyGlassButton.vue';
 
 // 注入全局状态
 const isSwiperEnabled = inject('isSwiperEnabled');
 
-// 模态框状态管理
+// 悬停状态管理
 const showModal = ref(false);
 const currentFeature = ref(null);
+const isHoveringCard = ref(false);
+const isHoveringModal = ref(false);
+let closeTimeout = null;
 
-const openModal = (featureId) => {
+const handleMouseEnter = (featureId) => {
+  isHoveringCard.value = true;
+  clearTimeout(closeTimeout);
   currentFeature.value = featureModalData[featureId];
   showModal.value = true;
-  // 禁用 Swiper 滑动
   isSwiperEnabled.value = false;
 };
+
+const handleMouseLeave = () => {
+  isHoveringCard.value = false;
+  tryCloseModal();
+};
+
+const onModalEnter = () => {
+  isHoveringModal.value = true;
+  clearTimeout(closeTimeout);
+};
+const onModalLeave = () => {
+  isHoveringModal.value = false;
+  tryCloseModal();
+};
+
+function tryCloseModal() {
+  clearTimeout(closeTimeout);
+  closeTimeout = setTimeout(() => {
+    if (!isHoveringCard.value && !isHoveringModal.value) {
+      showModal.value = false;
+      isSwiperEnabled.value = true;
+    }
+  }, 180);
+}
 
 const closeModal = () => {
   showModal.value = false;
