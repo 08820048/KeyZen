@@ -24,7 +24,7 @@
           class="laser-bar"
           :x="laserX"
           y="0"
-          :width="laserWidth"
+          :width="LASER_WIDTH"
           :height="svgHeight"
         />
       </g>
@@ -42,7 +42,7 @@ const RANDOM_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345
 const DURATION = 2500; // 扫描总时长
 const INTERVAL = 6400; // 每轮解码间隔
 const CHAR_DELAY = 80; // 字符错落延迟
-const LASER_WIDTH = 18; // px
+const LASER_WIDTH = ref(18); // px
 const svgHeight = 56;
 const svgWidth = ref(0);
 const svgRef = ref(null);
@@ -79,7 +79,7 @@ function startLaserDecode() {
     laserX.value = 36 + (TEXT.length - 1) * 38 * progress;
     for (let i = 0; i < TEXT.length; i++) {
       let charPos = 36 + i * 38;
-      if (laserX.value > charPos - LASER_WIDTH/2 - 6) {
+      if (laserX.value > charPos - LASER_WIDTH.value/2 - 6) {
         if (!decodedStates.value[i]) {
           decodedStates.value[i] = true;
           displayChars.value[i] = TEXT[i];

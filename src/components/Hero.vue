@@ -1,5 +1,5 @@
 <template>
-  <section class="flex flex-col items-center justify-center text-center py-20 md:py-32 select-none">
+  <section class="flex flex-col items-center justify-center text-center py-20 md:py-32 select-none relative">
     <!--<DecodeTitle />-->
     <DecodeTitleLaser />
     <p class="text-lg md:text-2xl text-gray-300 mb-10 animate-fade-in delay-100">
@@ -60,7 +60,25 @@ import DecodeTitleLaser from './DecodeTitleLaser.vue';
   position: relative;
   overflow: hidden;
 }
-.btn-modern-primary::after {
+
+.btn-modern-outline {
+  display: inline-block;
+  background: linear-gradient(90deg, #23262F 0%, #23262F 100%);
+  color: #7cb3ff;
+  font-weight: 700;
+  border-radius: 0.85em;
+  padding: 0.66em 2.3em;
+  border: 1.5px solid #5F7FFF;
+  font-size: 1.13rem;
+  box-shadow: 0 0.5px 2px 0 #5F7FFF11 inset;
+  outline: none;
+  transition: background 0.52s cubic-bezier(0.4,0,0.2,1), box-shadow 0.36s cubic-bezier(0.4,0,0.2,1), border-color 0.36s, color 0.36s, transform 0.44s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-modern-primary:after,
+.btn-modern-outline:after {
   content: '';
   position: absolute;
   inset: 0;
@@ -82,39 +100,6 @@ import DecodeTitleLaser from './DecodeTitleLaser.vue';
 .btn-modern-primary:focus::after {
   opacity: 0.15;
 }
-.btn-modern-primary:active {
-  background: linear-gradient(90deg, #5F7FFF 0%, #23262F 100%);
-  color: #b5cfff;
-  border-color: #6C7AFF;
-  box-shadow: 0 1px 4px 0 #23262F33;
-  transform: scale(0.98);
-}
-
-.btn-modern-outline {
-  display: inline-block;
-  background: linear-gradient(90deg, #23262F 0%, #23262F 100%);
-  color: #7cb3ff;
-  font-weight: 700;
-  border-radius: 0.85em;
-  padding: 0.66em 2.3em;
-  border: 1.5px solid #5F7FFF;
-  font-size: 1.13rem;
-  box-shadow: 0 0.5px 2px 0 #5F7FFF11 inset;
-  transition: background 0.58s cubic-bezier(0.4,0,0.2,1), color 0.48s, border-color 0.48s, box-shadow 0.48s, filter 0.48s, transform 0.58s cubic-bezier(0.4,0,0.2,1);
-  filter: none;
-  position: relative;
-  overflow: hidden;
-}
-.btn-modern-outline::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #5F7FFF22 0%, #A970FF11 100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.48s cubic-bezier(0.4,0,0.2,1);
-}
 .btn-modern-outline:hover,
 .btn-modern-outline:focus {
   color: #eaf2ff;
@@ -127,6 +112,15 @@ import DecodeTitleLaser from './DecodeTitleLaser.vue';
 .btn-modern-outline:focus::after {
   opacity: 0.11;
 }
+
+.btn-modern-primary:active {
+  background: linear-gradient(90deg, #5F7FFF 0%, #23262F 100%);
+  color: #b5cfff;
+  border-color: #6C7AFF;
+  box-shadow: 0 1px 4px 0 #23262F33;
+  transform: scale(0.98);
+}
+
 .btn-modern-outline:active {
   color: #7cb3ff;
   border-color: #5F7FFF;
@@ -149,4 +143,6 @@ import DecodeTitleLaser from './DecodeTitleLaser.vue';
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
 .delay-300 { animation-delay: 0.3s; }
+
+
 </style>
