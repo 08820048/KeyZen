@@ -46,6 +46,7 @@ import FeatureCards from './components/FeatureCards.vue';
 import BackgroundEffect from './components/BackgroundEffect.vue';
 import DynamicGridBg from './components/DynamicGridBg.vue';
 import KeyboardRhythmBackground from './components/KeyboardRhythmBackground.vue';
+import AuthModal from './components/AuthModal.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import { Mousewheel } from 'swiper/modules';
