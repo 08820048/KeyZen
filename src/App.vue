@@ -9,7 +9,8 @@
         :modules="modules"
         :mousewheel="{ forceToAxis: true, sensitivity: 1 }"
         :pagination="false"
-        class="h-screen w-full swiper-vertical"
+        :allowTouchMove="isSwiperEnabled"
+        class="min-h-screen w-full swiper-vertical"
         @slideChange="onSlideChange"
         ref="mainSwiper"
       >
@@ -17,29 +18,11 @@
           <Hero />
         </SwiperSlide>
         <SwiperSlide>
-          <FeatureCard
-            icon="i-carbon:ibm-security"
-            title="实时打字节奏识别"
-            desc="精准捕捉每一次击键，分析用户打字节奏，实现无感身份验证。"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <FeatureCard
-            icon="i-carbon:user-privacy"
-            title="本地建模，保护用户隐私"
-            desc="所有数据本地处理，用户数据绝不上云。"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <FeatureCard
-            icon="i-carbon:api"
-            title="提供标准 API 快速接入"
-            desc="标准化设计，快速集成，开发者友好。"
-          />
+          <FeatureCards />
         </SwiperSlide>
       </Swiper>
       <Transition name="float-fade">
-        <div v-if="showSwipeTip" class="absolute left-1/2 -translate-x-1/2 bottom-16 md:bottom-20 flex flex-col items-center select-none z-50 swipe-tip-container group" @click="scrollToNextSlide">
+        <div v-if="showSwipeTip && isSwiperEnabled" class="absolute left-1/2 -translate-x-1/2 bottom-16 md:bottom-20 flex flex-col items-center select-none z-50 swipe-tip-container group" @click="scrollToNextSlide">
           <div class="scroll-tip-button">
             <div class="scroll-tip-inner">
               <svg width="16" height="16" viewBox="0 0 16 16" class="opacity-85 group-hover:opacity-100 transition-all duration-300 scroll-arrow">
@@ -56,10 +39,10 @@
 </template>
 
 <script setup>
-import { ref, provide } from 'vue';
+import { ref, provide, watch, onMounted } from 'vue';
 import Navbar from './components/Navbar.vue';
 import Hero from './components/Hero.vue';
-import FeatureCard from './components/FeatureCard.vue';
+import FeatureCards from './components/FeatureCards.vue';
 import BackgroundEffect from './components/BackgroundEffect.vue';
 import DynamicGridBg from './components/DynamicGridBg.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -69,18 +52,45 @@ const modules = [Mousewheel];
 const mainSwiper = ref();
 const activeIndex = ref(0);
 const showSwipeTip = ref(true);
+
+// 添加一个全局状态来控制 Swiper 的滑动功能
+const isSwiperEnabled = ref(true);
+
 const onSlideChange = (swiper) => {
   activeIndex.value = swiper.activeIndex;
   showSwipeTip.value = swiper.activeIndex === 0;
 };
 
 const scrollToNextSlide = () => {
-  if (mainSwiper.value && mainSwiper.value.swiper) {
+  if (isSwiperEnabled.value && mainSwiper.value && mainSwiper.value.swiper) {
     mainSwiper.value.swiper.slideNext();
   }
 };
 
+// 提供全局状态给其他组件
 provide('showSwipeTip', showSwipeTip);
+provide('isSwiperEnabled', isSwiperEnabled);
+
+// 监听 Swiper 实例创建
+const updateSwiperStatus = () => {
+  if (mainSwiper.value && mainSwiper.value.swiper) {
+    if (isSwiperEnabled.value) {
+      mainSwiper.value.swiper.enable();
+    } else {
+      mainSwiper.value.swiper.disable();
+    }
+  }
+};
+
+// 监听 isSwiperEnabled 状态变化
+watch(isSwiperEnabled, () => {
+  updateSwiperStatus();
+});
+
+// 当 Swiper 实例创建后更新状态
+onMounted(() => {
+  updateSwiperStatus();
+});
 </script>
 
 <style>
