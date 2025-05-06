@@ -116,17 +116,25 @@ const currentFeature = ref(null);
 const isHoveringCard = ref(false);
 const isHoveringModal = ref(false);
 let closeTimeout = null;
+let openTimeout = null;
 
 const handleMouseEnter = (featureId) => {
   isHoveringCard.value = true;
   clearTimeout(closeTimeout);
+  clearTimeout(openTimeout);
   currentFeature.value = featureModalData[featureId];
-  showModal.value = true;
-  isSwiperEnabled.value = false;
+  // 设置1.5秒延时打开模态框
+  openTimeout = setTimeout(() => {
+    if (isHoveringCard.value) {
+      showModal.value = true;
+      isSwiperEnabled.value = false;
+    }
+  }, 900);
 };
 
 const handleMouseLeave = () => {
   isHoveringCard.value = false;
+  clearTimeout(openTimeout);
   tryCloseModal();
 };
 
