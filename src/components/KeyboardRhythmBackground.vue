@@ -25,6 +25,15 @@ let keyboardCenter = { x: 0, y: 0 };
 let keys = [];
 let activeKey = null;
 
+// 键盘按键字符
+const keyChars = [
+  ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', '⌫'],
+  ['⇥', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'],
+  ['⇪', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', '↵'],
+  ['⇧', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '⇧'],
+  ['⌃', '⌘', '⌥', '', '', '', '', '', '', '⌥', '⌘', '⌃']
+];
+
 // 高亮框对象
 let highlightBox = {
   x: 0, y: 0, w: keyW, h: keyH, targetX: 0, targetY: 0, moving: false, targetIdx: 0
@@ -63,7 +72,8 @@ function initKeyboard() {
         y: py,
         w: keyW,
         h: keyH,
-        idx: r * keyCols + c
+        idx: r * keyCols + c,
+        char: keyChars[r][c] || ''
       });
     }
   }
@@ -137,6 +147,14 @@ function drawKeyboard() {
     ctx.lineWidth = 1.5;
     ctx.globalAlpha = 0.5;
     ctx.stroke();
+    // 绘制按键字符
+    if (key.char) {
+      ctx.font = '12px "JetBrains Mono", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(key.char, key.x + key.w/2, key.y + key.h/2);
+    }
     ctx.globalAlpha = 1;
     ctx.restore();
   });
@@ -150,6 +168,15 @@ function drawKeyboard() {
   ctx.shadowColor = softPurple;
   ctx.shadowBlur = 16;
   ctx.stroke();
+  // 高亮框内的字符
+  const activeKey = keys[highlightBox.targetIdx];
+  if (activeKey && activeKey.char) {
+    ctx.font = '12px "JetBrains Mono", monospace';
+    ctx.fillStyle = softPurple;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(activeKey.char, highlightBox.x + highlightBox.w/2, highlightBox.y + highlightBox.h/2);
+  }
   ctx.globalAlpha = 1;
   ctx.shadowBlur = 0;
   ctx.restore();
