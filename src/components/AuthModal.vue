@@ -166,6 +166,9 @@ const globalError = ref('');
 
 const fingerprintInputRef = ref(null);
 
+// 登录流程相关变量
+let loginNeedKeyprint = false;
+
 const validateStep1 = () => {
   let isValid = true;
   
@@ -240,15 +243,17 @@ const handleStep1Submit = async () => {
       if (statusData.code === 0) {
         const { enable_keyprint, has_keyprint } = statusData.data;
         if (enable_keyprint && has_keyprint) {
+          loginNeedKeyprint = true;
           currentStep.value = 2;
           keyTimestamps.value = [];
           keyprintData.value = null;
           return;
         } else {
+          loginNeedKeyprint = false;
           await handleSubmit();
         }
       } else if (statusData.code === 1004) {
-        // 需要指纹，跳到第二步
+        loginNeedKeyprint = true;
         currentStep.value = 2;
         keyTimestamps.value = [];
         keyprintData.value = null;
@@ -296,7 +301,7 @@ const handleSubmit = async () => {
 
     if (isLogin.value) {
       // 登录请求
-      if (currentStep.value === 2 && keyprintData.value) {
+      if (loginNeedKeyprint && currentStep.value === 2 && keyprintData.value) {
         requestData.keyprint = keyprintData.value;
       }
       const response = await login(requestData);
@@ -305,7 +310,7 @@ const handleSubmit = async () => {
         localStorage.setItem('token', token);
         localStorage.setItem('user_id', user_id);
         localStorage.setItem('username', username);
-        if (similarity !== undefined && !isKeyprintMatch(similarity)) {
+        if (loginNeedKeyprint && similarity !== undefined && !isKeyprintMatch(similarity)) {
           await resetFingerprintInput();
           globalError.value = '键盘指纹验证失败，请重新输入';
           isSubmitting.value = false;
@@ -314,11 +319,12 @@ const handleSubmit = async () => {
         emit('complete', response.data.data);
         handleClose();
       } else if (response.data.code === 1004) {
-        // 再次要求指纹，跳到第二步
+        loginNeedKeyprint = true;
         currentStep.value = 2;
         keyTimestamps.value = [];
         keyprintData.value = null;
         globalError.value = response.data.message || '请录入键盘指纹';
+        isSubmitting.value = false;
         return;
       } else {
         handleErrorResponse(response.data);

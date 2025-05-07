@@ -10,7 +10,7 @@
       </div>
       <ul class="flex items-center space-x-6 md:space-x-10 text-base font-medium tracking-wider">
         <li>
-          <a href="#demo" class="nav-link-enhanced">功能演示</a>
+          <a href="#demo" class="nav-link-enhanced">定价</a>
         </li>
         <li>
           <a href="#docs" class="nav-link-enhanced">开发文档</a>
